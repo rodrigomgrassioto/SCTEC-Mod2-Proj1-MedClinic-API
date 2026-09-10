@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { AppDataSource } from './database/data-source';
 import router from './routes/router';
 import errorMiddleware from './middlewares/errorMiddleware';
