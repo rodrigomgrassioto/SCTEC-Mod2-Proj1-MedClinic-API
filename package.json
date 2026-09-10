@@ -1,0 +1,39 @@
+{
+  "name": "medclinic-api",
+  "version": "1.0.0",
+  "description": "API do sistema MedClinic",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node --env-file=.env dist/server.js",
+    "dev": "tsx watch --env-file=.env src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "type-check": "tsc --noEmit",
+    "migration:generate": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:generate src/database/migrations/CreateUserTable -d src/database/data-source.ts",
+    "migration:run": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
+    "migration:revert": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:revert -d src/database/data-source.ts"
+  },
+  "dependencies": {
+    "bcrypt": "6.0.0",
+    "express": "5.2.1",
+    "jsonwebtoken": "9.0.3",
+    "pg": "8.23.0",
+    "typeorm": "1.1.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "6.0.0",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/node": "22.20.2",
+    "tsx": "4.23.13",
+    "typescript": "6.0.3"
+  },
+  "keywords": [
+    "medclinic",
+    "api",
+    "typescript",
+    "typeorm"
+  ],
+  "author": "Equipe MedClinic",
+  "license": "MIT"
+}
