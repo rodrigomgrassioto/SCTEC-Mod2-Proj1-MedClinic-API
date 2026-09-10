@@ -1,10 +1,10 @@
-import { Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export default function errorMiddleware(
   err: any,
-  // req: Request,
+  req: Request,
   res: Response,
-  // next: NextFunction
+  next: NextFunction
 ): void {
   let status = 500;
   let message = 'Erro interno no servidor';
