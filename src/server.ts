@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 import { AppDataSource } from './database/data-source';
-// import router from './routes/router';
-// import errorMiddleware from './middlewares/errorMiddleware';
+import router from './routes/router';
+import errorMiddleware from './middlewares/errorMiddleware';
 
 const app = express();
 const PORT = process.env.PORT || '3000';
@@ -10,10 +10,10 @@ const PORT = process.env.PORT || '3000';
 app.use(express.json());
 
 // Vincula todas as rotas centralizadas do aplicativo sob o prefixo /api
-// app.use('/api', router);
+app.use('/api', router);
 
 // O middleware de erro DEVE vir por último para capturar os erros das rotas
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 // Inicializa a conexão com o PostgreSQL através do TypeORM
 AppDataSource.initialize()
