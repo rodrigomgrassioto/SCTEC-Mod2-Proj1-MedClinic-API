@@ -1,0 +1,90 @@
+### Configurações Globais de Ambiente
+@host = http://localhost:3000/api
+
+### 1. Criar Usuário Administrador (ADMIN)
+# @no-log
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Carlos Administrador",
+  "email": "admin@medclinic.com",
+  "password": "SenhaSegura123",
+  "role": "ADMIN"
+}
+
+###
+
+### 2. Criar Usuário Atendente (ATTENDANT)
+# @no-log
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Mariana Atendente",
+  "email": "mariana@medclinic.com",
+  "password": "SenhaAtendente123",
+  "role": "ATTENDANT"
+}
+
+###
+
+### 3. Criar Usuário Padrão (Sem informar role - assume ATTENDANT)
+# @no-log
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Pedro Silva",
+  "email": "pedro2@medclinic.com",
+  "password": "SenhaPedro123"
+}
+
+###
+
+### 4.1 Realizar Login com o Administrador (Para capturar o Token)
+# @no-log
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@medclinic.com",
+  "password": "SenhaSegura123"
+}
+
+> {%
+    // Este script guarda o token automaticamente no WebStorm após o login
+    client.global.set("auth_token", response.body.token);
+%}
+
+###
+
+
+### 4.2 Realizar Login com o Atendente (Para capturar o Token)
+# @no-log
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "mariana@medclinic.com",
+  "password": "SenhaAtendente123"
+}
+
+> {%
+    // Este script guarda o token automaticamente no WebStorm após o login
+    client.global.set("auth_token", response.body.token);
+%}
+
+###
+
+### 5. Testar Rota Protegida /me (Retorna dados do Usuário Atual)
+# @no-log
+GET {{host}}/users/me
+Authorization: Bearer {{auth_token}}
+
+###
+
+### 6. Testar Rota Administrativa /admin/ping
+# @no-log
+GET {{host}}/admin/ping
+Authorization: Bearer {{auth_token}}
