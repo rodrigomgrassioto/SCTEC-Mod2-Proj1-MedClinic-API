@@ -1,6 +1,9 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { hashPassword, comparePassword } from '../utils/crypto';
 import { generateToken } from '../utils/jwt';
+import { RegisterUserDTO } from '../dtos/auth/RegisterUserDTO'
+import { LoginDTO } from '../dtos/auth/LoginDTO'
+import { UserResponseDTO } from '../dtos/auth/UserResponseDTO'
 
 /**
  * Classe de serviço para autenticação e cadastro de usuários
@@ -12,7 +15,7 @@ export class AuthService {
    * @returns Objeto com dados do usuário cadastrado
    * @throws Erro se e-mail já existir ou campos obrigatórios faltarem
    */
-  async register(data: { name: string; email: string; password: string; role?: string }): Promise<{ id: string; name: string; email: string; role: string }>
+  async register(data: RegisterUserDTO): Promise<UserResponseDTO>
   {
     // Validação de campos obrigatórios
     if (!data.name || !data.email || !data.password) {
@@ -49,9 +52,9 @@ export class AuthService {
     // Retorna os dados do usuário (sem a senha)
     return {
       id: savedUser.id,
-      name: data.name,
-      email: data.email,
-      role: data.role || 'ATTENDANT'
+      name: savedUser.name,
+      email: savedUser.email,
+      role: savedUser.role
     };
   }
 
@@ -61,7 +64,7 @@ export class AuthService {
    * @returns Objeto com token e dados do usuário autenticado
    * @throws Erro se credenciais inválidas
    */
-  async login(data: { email: string; password: string }): Promise<{ user: { id: string; name: string; email: string; role: string }; token: string }>
+  async login(data: LoginDTO): Promise<{ user: UserResponseDTO, token: string }>
   {
     // Busca usuário pelo e-mail
     const user = await UserRepository.findByEmail(data.email);
