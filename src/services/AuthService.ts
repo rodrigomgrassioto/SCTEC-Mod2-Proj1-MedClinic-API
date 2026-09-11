@@ -23,7 +23,7 @@ export class AuthService {
     }
 
     // Verificação do formato do e-mail (Regex simples)
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/
     if (!emailRegex.test(data.email)) {
       throw new Error('Formato de e-mail inválido');
     }
