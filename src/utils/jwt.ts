@@ -1,5 +1,10 @@
 import * as jwt from 'jsonwebtoken';
 
+export interface JwtPayload {
+  id: string
+  role: string
+}
+
 /**
  * Gera um token JWT assinado com as configurações do ambiente
  * @param payload - Objeto contendo identificador e perfil do usuário
@@ -26,9 +31,9 @@ export function generateToken(payload: { id: string; role: string }): string {
  * @returns Objeto decodificado do token
  * @throws Erro se o token for inválido ou expirado
  */
-export function verifyToken(token: string): any {
+export function verifyToken(token: string): JwtPayload {
   try {
-    return jwt.verify(token, process.env.JWT_SECRET!);
+    return jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
   } catch (error) {
     throw new Error('Token inválido ou expirado');
   }
