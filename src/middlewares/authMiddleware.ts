@@ -18,7 +18,11 @@ export const authMiddleware = (
     
     try {
       const decoded = verifyToken(token);
-      req.user = { id: decoded.sub, role: decoded.role };
+      req.user = {
+        id: decoded.sub,
+        role: decoded.role,
+        // exp: decoded.exp // se quiser o tempo de expirar o token
+      };
       next();
     } catch (error) {
       res.status(401).json({ error: "Token inválido ou expirado" });
