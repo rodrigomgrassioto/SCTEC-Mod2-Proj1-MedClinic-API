@@ -14,7 +14,7 @@ export class User {
   @Column({ type: 'varchar' })
   password!: string; // Guardará o hash da senha gerado pelo bcrypt posteriormente
 
-  @Column({ type: 'varchar', default: 'ATTENDNT' })
+  @Column({ type: 'varchar', default: 'ATTENDANT' })
   role!: string; // Valores esperados: 'ADMIN' ou 'ATTENDANT' (padrão é 'ATTENDANT')
 
   @CreateDateColumn({ type: 'timestamp' })
