@@ -15,21 +15,23 @@ export class AuthService {
    * @returns Objeto com dados do usuário cadastrado
    * @throws Erro se e-mail já existir ou campos obrigatórios faltarem
    */
-  async register(data: RegisterUserDTO): Promise<UserResponseDTO>
+  public async register(data: RegisterUserDTO): Promise<UserResponseDTO>
   {
     // Validação de campos obrigatórios
     if (!data.name || !data.email || !data.password) {
       throw new Error('Campos nome, e-mail e senha são obrigatórios');
     }
 
+    const emailLower = this.normalizeEmail(data.email);
+
     // Verificação do formato do e-mail (Regex simples)
     const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/
-    if (!emailRegex.test(data.email)) {
+    if (!emailRegex.test(emailLower)) {
       throw new Error('Formato de e-mail inválido');
     }
 
     // Verifica se o e-mail já está cadastrado
-    const userExists = await UserRepository.findByEmail(data.email);
+    const userExists = await UserRepository.findByEmail(emailLower);
     if (userExists) {
       throw new Error('E-mail já cadastrado');
     }
@@ -40,7 +42,7 @@ export class AuthService {
     // Cria usuário com o hash da senha
     const newUser = {
       name: data.name,
-      email: data.email,
+      email: emailLower,
       password: hashedPassword,
       role: data.role || 'ATTENDANT'
     };
@@ -64,10 +66,12 @@ export class AuthService {
    * @returns Objeto com token e dados do usuário autenticado
    * @throws Erro se credenciais inválidas
    */
-  async login(data: LoginDTO): Promise<{ user: UserResponseDTO, token: string }>
+  public async login(data: LoginDTO): Promise<{ user: UserResponseDTO, token: string }>
   {
+    const emailLower = this.normalizeEmail(data.email)
+
     // Busca usuário pelo e-mail
-    const user = await UserRepository.findByEmail(data.email);
+    const user = await UserRepository.findByEmail(emailLower);
     
     // Verifica se o usuário existe e compara a senha
     if (!user || !(await comparePassword(data.password, user.password))) {
@@ -90,5 +94,9 @@ export class AuthService {
       },
       token
     };
+  }
+
+  private normalizeEmail(email: string): string {
+    return email.trim().toLowerCase()
   }
 }
