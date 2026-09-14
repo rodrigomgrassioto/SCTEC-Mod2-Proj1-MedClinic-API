@@ -13,9 +13,15 @@ API REST desenvolvida em **Node.js + TypeScript + Express**, utilizando **Postgr
 
 O projeto faz parte do **Mini-Projeto Avaliativo — Módulo 02 / Back End Node**, seguindo a arquitetura em camadas solicitada para a evolução futura da aplicação MedClinic.
 
-Vídeo de apresentação do projeto: https://youtu.be/nGtsBWe2urA
-Repositório inicial: Arquivos = https://github.com/rodrigomgrassioto/CR_SCTEC/tree/feat/001Iniciarojeto01Mod02/1-Carreira%20Tech%20-%20Trilha%20Desenvolvimento%20de%20Software/1-Back-end%20JavaScript%2C%20TypeScript%20e%20PostgreSQL/Projetos/3-Modulo2Projeto1-MedClinic_API
-Repositório inicial: Commits: https://github.com/rodrigomgrassioto/CR_SCTEC/compare/main...feat/001Iniciarojeto01Mod02
+Vídeo de apresentação do projeto:  
+https://youtu.be/nGtsBWe2urA  
+
+Repositório inicial, arquivos:  
+https://github.com/rodrigomgrassioto/CR_SCTEC/tree/feat/001Iniciarojeto01Mod02/1-Carreira%20Tech%20-%20Trilha%20Desenvolvimento%20de%20Software/1-Back-end%20JavaScript%2C%20TypeScript%20e%20PostgreSQL/Projetos/3-Modulo2Projeto1-MedClinic_API
+
+Repositório inicial, commits:  
+https://github.com/rodrigomgrassioto/CR_SCTEC/compare/main...feat/001Iniciarojeto01Mod02
+
 ---
 
 ## 📌 Escopo desta etapa
